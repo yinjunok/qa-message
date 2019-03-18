@@ -12,6 +12,7 @@ interface IMessage {
 interface IMessageState {
   messages: IMessage[];
 }
+
 export default class Message extends React.Component<{}, IMessageState> {
   state = {
     messages: []

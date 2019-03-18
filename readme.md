@@ -1,8 +1,3 @@
-待完成: 
-- [ ] `cropImgType?: 'blob' | 'base64';` 截图图片的选择
-- [ ] 自定义截图宽高
-- [ ] 自定义宽高比例
-
 ## 备忘 puppeteer 安装
 
 1. 不自动下载 Chromium
