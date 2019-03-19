@@ -16,13 +16,16 @@ class App extends React.Component {
   render() {
     return (
       <div className='demo'>
-        <button onClick={this.clickHandler}>message</button>
+        <button onClick={this.clickHandler('info')}>info</button>
+        <button onClick={this.clickHandler('warn')}>warn</button>
+        <button onClick={this.clickHandler('error')}>error</button>
+        <button onClick={this.clickHandler('success')}>success</button>
       </div>
     );
   }
 
-  private clickHandler = () => {
-    message.notice('abcd')
+  private clickHandler = (type) => () => {
+    message[type](<span>{type}</span>, { duration: 3000, onClose: () => {} })
   }
 }
 

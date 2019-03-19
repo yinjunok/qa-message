@@ -10,18 +10,22 @@ import './style.less';
 
 let ID = 0;
 
-const div = document.createElement('div');
-
+type TMessageType = 'info' | 'warn' | 'error' | 'success';
 export interface IMessage {
   id: number;
-  message: string;
-  // type: 'info' | 'warn' | 'error' | 'success',
-  // duration: number;
-  // onClose: () => void;
+  message: React.ReactNode;
+  type: TMessageType,
+  duration: number;
+  onClose: () => void;
 }
 
 interface IMessageState {
   messages: IMessage[];
+}
+
+interface IMessageConfig {
+  duration?: number;
+  onClose?: () => void
 }
 
 export default class Message extends React.Component<{}, IMessageState> {
@@ -36,20 +40,48 @@ export default class Message extends React.Component<{}, IMessageState> {
         return;
       }
       called = true;
+
       cb({
-        notice(message: string){
-          notice.add(message);
+        info(message: React.ReactNode, { duration = 3000, onClose = () => {} }) {
+          const m = {
+            id: ID++,
+            type: 'info' as TMessageType,
+            message,
+            duration,
+            onClose,
+          }
+          notice.add(m);
         },
-        info() {
-
+        warn(message: React.ReactNode, { duration = 3000, onClose = () => {} }) {
+          const m = {
+            id: ID++,
+            type: 'warn' as TMessageType,
+            message,
+            duration,
+            onClose,
+          }
+          notice.add(m);
         },
-        warn() {
-
+        error(message: React.ReactNode, { duration = 3000, onClose = () => {} }) {
+          const m = {
+            id: ID++,
+            type: 'error' as TMessageType,
+            message,
+            duration,
+            onClose,
+          }
+          notice.add(m);
         },
-        error() {
-
-        },
-        success() {}
+        success(message: React.ReactNode, { duration = 3000, onClose = () => {} }) {
+          const m = {
+            id: ID++,
+            type: 'success' as TMessageType,
+            message,
+            duration,
+            onClose,
+          }
+          notice.add(m);
+        }
       })
     }
     
@@ -60,15 +92,10 @@ export default class Message extends React.Component<{}, IMessageState> {
     messages: []
   }
 
-  public add(message: string) {
-    const id = ID++;
-    console.log(message)
+  public add(message: IMessage) {
     this.setState({
       messages: [
-        {
-          id,
-          message,
-        },
+        message,
         ...this.state.messages,
       ]
     }, () => {
@@ -88,7 +115,7 @@ export default class Message extends React.Component<{}, IMessageState> {
         {
           messages.map((m: IMessage) => (
             <CSSTransition key={m.id} timeout={500} classNames='fade'>
-              <MessageItem message={m.message} type='' />
+              <MessageItem message={m.message} type={m.type} />
             </CSSTransition>
           ))
         }
