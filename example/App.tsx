@@ -9,23 +9,21 @@ setConfig({
   pureRender: true, // RHL will not change render method
 });
 
+let message = null;
+Message.newInstance((n) => message = n)
+
 class App extends React.Component {
   render() {
     return (
       <div className='demo'>
-        <Message ref={this.messageRef} />
         <button onClick={this.clickHandler}>message</button>
       </div>
     );
   }
 
   private clickHandler = () => {
-    if (this.messageRef !== null) {
-      this.messageRef.current.add('abcd')
-    }
+    message.notice('abcd')
   }
-
-  private messageRef = React.createRef<Message>();
 }
 
 export default hot(App);
