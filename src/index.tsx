@@ -1,13 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from "react-dom";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import {
+  CSSTransition,
+  TransitionGroup
+} from 'react-transition-group';
+
+import MessageItem from './MessageItem';
 import './style.less';
 
 let ID = 0;
 
 const div = document.createElement('div');
 
-interface IMessage {
+export interface IMessage {
   id: number;
   message: string;
   // type: 'info' | 'warn' | 'error' | 'success',
@@ -34,7 +39,17 @@ export default class Message extends React.Component<{}, IMessageState> {
       cb({
         notice(message: string){
           notice.add(message);
-        }
+        },
+        info() {
+
+        },
+        warn() {
+
+        },
+        error() {
+
+        },
+        success() {}
       })
     }
     
@@ -47,6 +62,7 @@ export default class Message extends React.Component<{}, IMessageState> {
 
   public add(message: string) {
     const id = ID++;
+    console.log(message)
     this.setState({
       messages: [
         {
@@ -56,11 +72,11 @@ export default class Message extends React.Component<{}, IMessageState> {
         ...this.state.messages,
       ]
     }, () => {
-      setTimeout(() => {
-        this.setState({
-          messages: this.state.messages.filter((m: IMessage) => id !== m.id),
-        });
-      }, 5000)
+      // setTimeout(() => {
+      //   this.setState({
+      //     messages: this.state.messages.filter((m: IMessage) => id !== m.id),
+      //   });
+      // }, 5000)
     });
   }
 
@@ -68,11 +84,11 @@ export default class Message extends React.Component<{}, IMessageState> {
     const { messages } = this.state;
     
     return (
-      <TransitionGroup>
+      <TransitionGroup className='qa-m-container' component='span'>
         {
           messages.map((m: IMessage) => (
             <CSSTransition key={m.id} timeout={500} classNames='fade'>
-              <div>{m.message}</div>
+              <MessageItem message={m.message} type='' />
             </CSSTransition>
           ))
         }
