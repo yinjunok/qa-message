@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { setConfig } from 'react-hot-loader'
-import { hot } from 'react-hot-loader/root'
+import { setConfig } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import './sty.less';
-import message from '../src';
+import message from '../src/index';
 
 setConfig({
   ignoreSFC: true, // RHL will be __completely__ disabled for SFC
@@ -10,7 +10,7 @@ setConfig({
 });
 
 class App extends React.Component {
-  render() {
+  public render() {
     return (
       <div className='demo'>
         <button onClick={this.clickHandler('info')}>info</button> <br/>
@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   private clickHandler = (type) => () => {
-    message[type](<span>{type}这是一段超级长的 message, 看看他是怎么显示的</span>)
+    message[type](<span>{type}这是一段超级长的 message, 看看他是怎么显示的</span>);
   }
 }
 

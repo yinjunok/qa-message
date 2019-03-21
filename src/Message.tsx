@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
   CSSTransition,
-  TransitionGroup
+  TransitionGroup,
 } from 'react-transition-group';
 import MessageItem from './MessageItem';
 import './style.less';
@@ -19,21 +19,18 @@ interface IMessageState {
   messages: IMessage[];
 }
 
-interface IApi {
-  [p: string]: (m: React.ReactNode, onClose?: () => void) => void;
-}
-
+// tslint:disable-next-line
 const noop = () => {};
 
 let ID = 0;
 class Message extends React.Component<{}, IMessageState> {
-  static getInstance(cb: (n: Message) => void) {
+  public static getInstance(cb: (n: Message) => void) {
     const div = document.createElement('div');
     document.body.appendChild(div);
     let called = false;
 
     function ref(instance: Message) {
-      if(called) {
+      if (called) {
         return;
       }
       called = true;
@@ -44,14 +41,14 @@ class Message extends React.Component<{}, IMessageState> {
     ReactDOM.render(<Message ref={ref} />, div);
   }
 
-  state = {
-    messages: []
-  }
+  public state = {
+    messages: [],
+  };
 
-  add = (
+  public add = (
     message: React.ReactNode,
     type: TMessageType,
-    onClose: () => void = noop
+    onClose: () => void = noop,
   ) => {
     const { messages } = this.state;
 
@@ -60,13 +57,14 @@ class Message extends React.Component<{}, IMessageState> {
       type,
       message,
       onClose,
-    }
+    };
+
     this.setState({
       messages: [ ...messages, newMessage ],
     });
   }
 
-  remove = (id: number) => {
+  public remove = (id: number) => {
     const { messages } = this.state;
 
     this.setState({
@@ -74,7 +72,7 @@ class Message extends React.Component<{}, IMessageState> {
     });
   }
 
-  render() {
+  public render() {
     const { messages } = this.state;
 
     return (
