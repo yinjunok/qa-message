@@ -13,11 +13,13 @@ interface IApi {
 let instance: Message;
 Message.getInstance((n) => instance = n);
 
-const api: any = {};
-['info', 'error', 'success', 'warn'].forEach((type) => {
+const api: IApi = {} as IApi;
+const types: TMessageType[] = ['info', 'error', 'success', 'warn'];
+
+types.forEach((type) => {
   api[type] = (m: React.ReactNode, onClose?: () => void) => {
     instance.add(m, type as TMessageType, onClose);
   };
 });
 
-export default api as IApi;
+export default api;
