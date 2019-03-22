@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --config webpack.dev.config.js --open",
     "types": "tsc -d --emitDeclarationOnly --allowJs false --noEmit false --isolatedModules false --declarationDir ./@types",
     "build": "webpack --config webpack.build.config.js",
-    "test": "jest",
+    "test": "jest --watch",
     "dll": "webpack --config webpack.dll.config.js"
   },
   "dependencies": {

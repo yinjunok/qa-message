@@ -5,7 +5,6 @@ import {
   TransitionGroup,
 } from 'react-transition-group';
 import MessageItem from './MessageItem';
-import './style.less';
 
 export type TMessageType = 'info' | 'error' | 'success' | 'warn';
 export interface IMessage {
@@ -24,6 +23,10 @@ const noop = () => {};
 
 let ID = 0;
 class Message extends React.Component<{}, IMessageState> {
+  /**
+   * 获取 Message 实例静态方法
+   * @param {Function} cb ref 回调, 获取 Message 实例
+   */
   public static getInstance(cb: (n: Message) => void) {
     const div = document.createElement('div');
     document.body.appendChild(div);
@@ -45,6 +48,14 @@ class Message extends React.Component<{}, IMessageState> {
     messages: [],
   };
 
+  /**
+   * 添加 message 方法
+   *
+   * @memberof Message
+   * @param {React.ReactNode} message 添加的 message
+   * @param {TMessageType} type message 类型
+   * @param {Function} onClose message 关闭后的回调
+   */
   public add = (
     message: React.ReactNode,
     type: TMessageType,
@@ -64,6 +75,12 @@ class Message extends React.Component<{}, IMessageState> {
     });
   }
 
+  /**
+   * 删除 message 方法
+   *
+   * @memberof Message
+   * @param {number} id 要删除 message 的 id
+   */
   public remove = (id: number) => {
     const { messages } = this.state;
 

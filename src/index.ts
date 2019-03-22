@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './style.less';
 import Message, { TMessageType } from './Message';
 
 type TApiMethod = (m: React.ReactNode, onClose?: () => void) => void;
